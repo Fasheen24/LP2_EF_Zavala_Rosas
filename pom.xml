@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>LP2_EF_Zavala_Rosas_Gonzalo</artifactId>
+	<artifactId>LP2_EF_Zavala_Rosas</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>LP2_EF_Zavala_Rosas_Gonzalo</name>
+	<name>LP2_EF_Zavala_Rosas</name>
 	<description>Este es mi Examen Final de LP2</description>
 	<url/>
 	<licenses>
@@ -58,6 +58,35 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+
+            <groupId>org.mindrot</groupId>
+
+            <artifactId>jbcrypt</artifactId>
+
+            <version>0.4</version>
+
+        </dependency>
+        
+         <dependency>
+
+            <groupId>com.itextpdf</groupId>
+
+            <artifactId>kernel</artifactId>
+
+            <version>7.2.1</version>
+
+        </dependency>
+
+        <dependency>
+
+            <groupId>com.itextpdf</groupId>
+
+            <artifactId>html2pdf</artifactId>
+
+            <version>4.0.1</version>
+
+        </dependency>
 	</dependencies>
 
 	<build>
