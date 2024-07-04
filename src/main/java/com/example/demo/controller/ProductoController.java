@@ -165,6 +165,11 @@ public class ProductoController {
 		model.addAttribute("producto", productoEcontraEntity);
 		return "buscar";
 	}
+	@GetMapping("/eliminar_producto/{id}")
+	public String eliminarProducto(@PathVariable("id") Integer id, Model model) {
+        productoService.eliminarProducto(id);
+        return "redirect:/menu";
+    }
 
 
 
