@@ -22,7 +22,7 @@ import jakarta.transaction.Transactional;
 @Service
 public class PedidoServiceImpl implements PedidoService{
 
-	
+
 	 	@Autowired
 	    private PedidoRepository pedidoRepository;
 
@@ -45,7 +45,7 @@ public class PedidoServiceImpl implements PedidoService{
 	            for (Pedido pedido : productoSession) {
 	                DetallePedidoEntity detallePedidoEntity = new DetallePedidoEntity();
 	                ProductoEntity productoEntity = new ProductoEntity();
-	                productoEntity.setProductoId(pedido.getProductoId().longValue());
+	                productoEntity.setProductoId(pedido.getProductoId());
 
 	                detallePedidoEntity.setProductoEntity(productoEntity);
 	                detallePedidoEntity.setCantidad(pedido.getCantidad());

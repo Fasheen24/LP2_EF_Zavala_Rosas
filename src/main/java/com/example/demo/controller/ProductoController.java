@@ -19,13 +19,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.demo.entity.CategoriaEntity;
 import com.example.demo.entity.DetallePedidoEntity;
 import com.example.demo.entity.ProductoEntity;
 import com.example.demo.entity.UsuarioEntity;
 import com.example.demo.model.Pedido;
+import com.example.demo.repository.CategoriaRepository;
 import com.example.demo.service.ProductoService;
 import com.example.demo.service.UsuarioService;
 import com.example.demo.service.impl.PdfService;
@@ -39,6 +42,8 @@ public class ProductoController {
 	private ProductoService productoService;
 	@Autowired
 	private PdfService pdfService;
+	@Autowired
+	private CategoriaRepository categoriaRepository;
 	
 	@GetMapping("/menu")
 	public String showMenu(HttpSession session, Model model) {
@@ -130,17 +135,37 @@ public class ProductoController {
 				.contentType(MediaType.APPLICATION_PDF)
 				.body(new InputStreamResource(pdfBytes));
 	}
+	@GetMapping("/registrar_producto")
+	public String showAgregarProducto(Model model) {
+		model.addAttribute("producto",new ProductoEntity());
+		model.addAttribute("categorias", categoriaRepository.findAll());
+		return "registrar_producto";
+	}
+	@PostMapping("/registrar_producto")
+	public String registrarProducto(ProductoEntity productoEntity) {
+		productoService.registrarProducto(productoEntity);
+		return "redirect:/menu";
+	}
 	
-    @PostMapping("/editar_producto")
-    public String editarProductoEnCarrito(HttpSession session, @RequestParam Integer productoId, @RequestParam int nuevaCantidad) {
-        productoService.editarProductoEnCarrito(session, productoId, nuevaCantidad);
-        return "redirect:/menu";
-    }
+	@GetMapping("/editar_producto/{id}")
+	public String showEditarProducto(@PathVariable("id") Integer productoId, Model model ) {
+		ProductoEntity productobuscarEntity = productoService.buscarProductoPorId(productoId);
+		model.addAttribute("categorias", categoriaRepository.findAll());
+		model.addAttribute("producto", productobuscarEntity);
+		return "editar_producto";
+	}
+	@PostMapping("/editar_producto")
+	public String editarEmpleado( Model model, ProductoEntity productoEntity ) {
+		productoService.editarProducto(productoEntity);
+		return "redirect:/menu";
+	}
+	@GetMapping("/buscar/{id}")
+	public String buscarPorId(@PathVariable("id") Integer id, Model model) {
+		ProductoEntity productoEcontraEntity = productoService.buscarProductoPorId(id);
+		model.addAttribute("producto", productoEcontraEntity);
+		return "buscar";
+	}
 
-    @PostMapping("/eliminar_producto")
-    public String eliminarProductoDelCarrito(HttpSession session, @RequestParam Integer productoId) {
-    	productoService.eliminarProductoDelCarrito(session, productoId);
-        return "redirect:/menu";
-    }
+
 
 }

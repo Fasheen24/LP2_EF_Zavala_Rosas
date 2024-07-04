@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.ToString;
 
@@ -21,31 +23,39 @@ public class ProductoEntity {
 	}
 	
 	
-	public ProductoEntity(Long productoId, String nombre, Integer stock, Double precio, String urlImagen) {
+
+
+
+	public ProductoEntity(Integer productoId, String nombre, Integer stock, Double precio, String urlImagen,
+			CategoriaEntity categoria) {
 		super();
 		this.productoId = productoId;
 		this.nombre = nombre;
 		this.stock = stock;
 		this.precio = precio;
 		this.urlImagen = urlImagen;
+		this.categoria = categoria;
 	}
-
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long productoId;
+	private Integer productoId;
 	
 	private String nombre;
 	private Integer stock;
 	private Double precio;
 	private String urlImagen;
 	
-	public Long getProductoId() {
+	@ManyToOne
+	@JoinColumn(name = "categoria_id")
+	private CategoriaEntity categoria;
+
+	public Integer getProductoId() {
 		return productoId;
 	}
 
 
-	public void setProductoId(Long productoId) {
+	public void setProductoId(Integer productoId) {
 		this.productoId = productoId;
 	}
 
@@ -88,6 +98,19 @@ public class ProductoEntity {
 	public void setUrlImagen(String urlImagen) {
 		this.urlImagen = urlImagen;
 	}
+
+
+	public CategoriaEntity getCategoria() {
+		return categoria;
+	}
+
+
+	public void setCategoria(CategoriaEntity categoria) {
+		this.categoria = categoria;
+	}
+	
+	
+	
 	
 	
 	
