@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.demo.entity.CategoriaEntity;
+
 import com.example.demo.entity.DetallePedidoEntity;
 import com.example.demo.entity.ProductoEntity;
 import com.example.demo.entity.UsuarioEntity;
